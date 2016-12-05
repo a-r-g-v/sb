@@ -9,17 +9,23 @@ import (
 var Success int
 var Failure int
 
+const (
+	maxConnsLimit = 100000
+)
+
+var client = http.Client{Transport: &http.Transport{MaxIdleConnsPerHost: maxConnsLimit}}
+
 func TestScenario() {
 
-	url := "https://api.push7.jp/api/v1/"
-	resp, _ := http.Get(url)
+	resp, _ := client.Get(url)
 	defer resp.Body.Close()
 
 	bytes, _ := ioutil.ReadAll(resp.Body)
-	if strings.Contains(string(bytes), "9aea470") {
+	if strings.Contains(string(bytes), "blog") {
 		Success++
 	} else {
 		Failure++
 	}
+	Success++
 
 }

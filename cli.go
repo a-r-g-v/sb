@@ -15,7 +15,7 @@ func (cli *CLI) Run(args []string) int {
 
 	next := make(chan *Runner)
 
-	sr := NewRunner(100, []scenarioFn{TestScenario})
+	sr := NewRunner(200, []scenarioFn{TestScenario})
 	go sr.start(next)
 	timeoutCh := time.After(30 * time.Second)
 
